@@ -13446,7 +13446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6498690047904201393, guid: 4058ec8e16a9f2646b9b7f102b19aab5, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6498690047904201395, guid: 4058ec8e16a9f2646b9b7f102b19aab5, type: 3}
       propertyPath: m_Name
@@ -17154,6 +17154,10 @@ PrefabInstance:
     - target: {fileID: 5555897311709605697, guid: eb4e8db5f50865e4b8e46d8a5065bd71, type: 3}
       propertyPath: m_Name
       value: mail-box (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568283819226465415, guid: eb4e8db5f50865e4b8e46d8a5065bd71, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28828,7 +28832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6498690047904201393, guid: 4058ec8e16a9f2646b9b7f102b19aab5, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6498690047904201395, guid: 4058ec8e16a9f2646b9b7f102b19aab5, type: 3}
       propertyPath: m_Name

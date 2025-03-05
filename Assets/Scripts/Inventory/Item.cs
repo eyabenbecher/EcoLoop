@@ -33,4 +33,19 @@ public class Item
 
         }
     }
+    public bool IsStackable()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.Paper: 
+            case ItemType.PlasticCan:
+            case ItemType.Garbage:
+            case ItemType.Lpaper:
+            case ItemType.Bag:
+            case ItemType.Scissors:
+                return true;
+
+        }
+    }
 }

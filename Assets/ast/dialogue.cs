@@ -1,59 +1,94 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class dialogue : MonoBehaviour
+
+public class Dialogue : MonoBehaviour
 {
-   public TextMeshProUGUI textComponent;
-   public string[] lines;
-   public float textSpeed;
-   private int index ;
-  void Start ()
-  {
-    textComponent.text = string.Empty;
-    StartDialogue();
-  }
-    
+    public GameObject dialogueUI;  // UI panel containing text
+    public TextMeshProUGUI textComponent;
+    public string[] lines;
+    public float textSpeed;
+    private int index;
+    private bool playerInRange = false;
+
+    void Start()
+    {
+        if (dialogueUI == null)
+        {
+            Debug.LogError("Dialogue UI is not assigned! Make sure to assign it in the Inspector.");
+            return;
+        }
+
+        dialogueUI.SetActive(false); // Hide UI initially
+    }
+
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (playerInRange && Input.GetKeyDown(KeyCode.E)) // Press 'E' to start
         {
-            if(textComponent.text == lines[index])
+            if (!dialogueUI.activeInHierarchy) // If dialogue is not active, start it
+            {
+                StartDialogue();
+            }
+            else if (textComponent.text == lines[index]) // If text is done, go to next line
             {
                 NextLine();
-
             }
-            else{
+            else // If text is not finished, show full text instantly
+            {
                 StopAllCoroutines();
-                textComponent.text=lines[index];
+                textComponent.text = lines[index];
             }
         }
     }
+
     void StartDialogue()
     {
-        index = 0;   
+        dialogueUI.SetActive(true);
+        index = 0;
         StartCoroutine(TypeLine());
-        
-        
-         }
+    }
+
     IEnumerator TypeLine()
     {
-        foreach(char c in lines[index].ToCharArray())
+        textComponent.text = "";
+        foreach (char c in lines[index].ToCharArray())
         {
             textComponent.text += c;
-            yield return new    WaitForSeconds(textSpeed);
+            yield return new WaitForSeconds(textSpeed);
         }
     }
+
     void NextLine()
     {
-        if(index < lines.Length -1)
+        if (index < lines.Length - 1)
         {
-            index ++;
-            textComponent.text=string.Empty;
+            index++;
             StartCoroutine(TypeLine());
         }
-        else{
-            gameObject.SetActive(false);
+        else
+        {
+            dialogueUI.SetActive(false); // Hide UI when dialogue ends
+        }
+    }
+
+    // Detect when player enters NPC area
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player entered NPC trigger zone!");
+            playerInRange = true;
+        }
+    }
+
+    // Detect when player leaves NPC area
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            dialogueUI.SetActive(false); // Hide dialogue when player leaves
         }
     }
 }

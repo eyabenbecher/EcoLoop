@@ -15,6 +15,9 @@ public class CharacterController2D : MonoBehaviour
 
     [SerializeField] private LayerMask dashLayerMask;
     [SerializeField] private GameObject characterSprite;
+    [SerializeField] private GameObject UIinventory;
+    [SerializeField] private GameObject UICrafting;
+    private Inventory InvenTory;
 
     private Character_Base characterBase;
     private Rigidbody2D rb;
@@ -48,6 +51,14 @@ public class CharacterController2D : MonoBehaviour
                 rollSpeed -= rollSpeed * ROLL_DECAY * Time.deltaTime;
                 if (rollSpeed < 50f) state = State.Normal;
                 break;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Crafting();
+        }
+        if(Input.GetKeyDown(KeyCode.Tab)) 
+        {
+            inventory();    
         }
     }
 
@@ -126,5 +137,24 @@ public class CharacterController2D : MonoBehaviour
 
         transform.position = target;
         isDashing = false;
+    }
+    private void inventory()
+    {
+        if (UIinventory.activeSelf == true)
+        {
+            UIinventory.SetActive(false);
+        }
+        else 
+        {
+            UIinventory.SetActive(true);
+        }
+    } 
+    private void Crafting()
+    {
+        if (UICrafting.activeSelf==true)
+        {
+            UICrafting.SetActive(false);
+        }
+        else UICrafting.SetActive(true);
     }
 }

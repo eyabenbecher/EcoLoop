@@ -10,6 +10,7 @@ public class Item
 {
   public enum ItemType
     {
+        None,
         Paper,
         PlasticCan,
         Garbage,
@@ -19,7 +20,8 @@ public class Item
     }
     public ItemType itemType;
     public int amount;
-    public Sprite GetSprite()
+    private IItemHolder itemHolder;
+    public static Sprite GetSprite(ItemType itemType)
     {
         switch(itemType)
         {
@@ -47,5 +49,25 @@ public class Item
                 return true;
 
         }
+    }
+    public void RemoveFromItemHolder()
+    {
+        if (itemHolder != null)
+        {
+            // Remove from current Item Holder
+            itemHolder.RemoveItem(this);
+        }
+    }
+    public void SetItemHolder(IItemHolder itemHolder)
+    {
+        this.itemHolder = itemHolder;
+    }
+    public IItemHolder GetItemHolder()
+    {
+        return itemHolder;
+    }
+    public Sprite GetSprite()
+    {
+        return GetSprite(itemType);
     }
 }
